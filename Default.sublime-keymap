@@ -1,0 +1,7 @@
+[
+    { "keys": ["alt+up"],           "command": "space_block_jump", "args": {"direction": -1}},
+    { "keys": ["alt+down"],         "command": "space_block_jump", "args": {"direction": 1}},
+    { "keys": ["alt+shift+up"],     "command": "space_block_jump", "args": {"direction": -1, "select": true } },
+    { "keys": ["alt+shift+down"],   "command": "space_block_jump", "args": {"direction": 1, "select": true}},
+    { "keys": ["alt+shift+d"],      "command": "space_block_select_block" }
+]

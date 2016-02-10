@@ -22,21 +22,19 @@ class SpaceBlockJumper(TextCommand):
     def updateContext(self, fun):
         def wrapper(self, *args, **kwargs):
             self.selection = self.view.sel()[0]
+            self.selections = self.view.sel()
             self.startCursorPoint = self.selection.b
             self.startCursorRow, self.startCursorCol = self.rowcol(self.startCursorPoint)
             return fun(self, *args, **kwargs)
         return wrapper
 
     def jump(self, direction, select):
-
-        newLine = self.getNewLine(self.startCursorRow, direction)
+        print("jump")
         if select:
-            newRegion = self.getLineRegion(newLine)
-            if direction -1:
-                self.view.sel().add(self.selection.cover(newRegion))
-            else:
-                self.view.sel().add(newRegion.cover(self.selection))
-
+            for region in self.selections:
+                newRegions = ExtendRegion(region, direction)
+            self.view.sel().clear()
+            self.view.sel().add_all(newRegions)
         else:
             self.view.sel().clear()
             rightCheck = min(self.getLineRegion(newLine, full=True).size(), self.startCursorCol)
@@ -48,6 +46,13 @@ class SpaceBlockJumper(TextCommand):
             self.view.show_at_center(newRegion)
         else:
             self.view.show(newRegion)
+
+    def ExtendRegion(self, region, direction):
+        startPoint = region.end() if direction -1 else region.begin()
+        newLine = self.getNewLine(startPoint, direction)
+        newRegion = self.getLineRegion(newLine)
+        print(region, region.intersection(newRegion))
+        return region.intersection(newRegion)
 
     def selectBlock(self):
 

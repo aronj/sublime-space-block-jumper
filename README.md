@@ -1,6 +1,6 @@
 # Space Block Jumper
 
-Navigational package for the Atom text editor.
+Navigational package for the Sublime text editor.
 
 This package lets you jump with the cursor vertically across space separated blocks, skipping empty lines. It also lets you select while jumping and has a command that selects current block. Consecutive usage of the block selection command indents selection or splits selection into multiple lines. This can be cycled.
 
